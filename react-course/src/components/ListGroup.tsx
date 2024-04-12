@@ -1,6 +1,13 @@
 import { Fragment, useState } from "react";
-function ListGroup() {
-  let items = ["New York", "Los Angles", "Beijing", "Singapore", "London"];
+
+interface ListGroupProps {
+  items: string[];
+  heading: string;
+  onSelectItem: (item: string) => void;
+}
+
+function ListGroup({ items, heading, onSelectItem }: ListGroupProps) {
+  //let items = ["New York", "Los Angles", "Beijing", "Singapore", "London"];
 
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
@@ -15,7 +22,7 @@ function ListGroup() {
   const handleClick = (event: MouseEvent) => console.log(event);
   return (
     <Fragment>
-      <h1>List</h1>
+      <h1>{heading}</h1>
       {items.length === 0 && <p>No items</p>}
       <ul className="list-group">
         {items.map((item, index) => (
@@ -28,6 +35,7 @@ function ListGroup() {
             key={item}
             onClick={() => {
               setSelectedIndex(index);
+              onSelectItem(item);
             }}
           >
             {item}
